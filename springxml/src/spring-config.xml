@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="configuration" class="org.framestudy.springxml.config.Configuration">
+
+		<property name="strs">
+			<list>
+				<value>a</value>
+				<value>b</value>
+				<value>c</value>
+			</list>
+		</property>
+
+		<property name="list">
+			<list>
+				<value>1</value>
+				<ref bean="userMybatisDaoImpl" />
+				<!-- bean 中有bean,就被称之为嵌套组件，特点：容器依旧会实例化该嵌套组件， 但是无法通过嵌套组件的ID获取到该组件，只能通过组件的getter()获取 -->
+				<bean class="org.framestudy.springxml.bean.UserBean"></bean>
+			</list>
+		</property>
+
+		<property name="users">
+			<list>
+				<!-- <ref /> -->
+				<bean class="org.framestudy.springxml.bean.UserBean">
+					<property name="userName" value="张飞"></property>
+				</bean>
+				<bean class="org.framestudy.springxml.bean.UserBean">
+					<property name="userName" value="关羽"></property>
+				</bean>
+			</list>
+		</property>
+
+		<property name="set">
+			<set>
+				<value>2</value>
+				<value>2</value>
+				<ref bean="userMybatisDaoImpl" />
+				<!-- bean 中有bean,就被称之为嵌套组件，特点：容器依旧会实例化该嵌套组件， 但是无法通过嵌套组件的ID获取到该组件，只能通过组件的getter()获取 -->
+				<bean class="org.framestudy.springxml.bean.UserBean">
+					<property name="userName" value="刘备"></property>
+				</bean>
+			</set>
+		</property>
+
+
+		<property name="map">
+			<map>
+				<entry key="a">
+					<value>a</value>
+				</entry>
+
+				<entry key="b">
+					<bean class="org.framestudy.springxml.bean.UserBean">
+						<property name="userName" value="曹操"></property>
+					</bean>
+				</entry>
+
+				<entry key="c">
+					<ref bean="userMybatisDaoImpl"/>
+				</entry>
+			</map>
+		</property>
+
+		<property name="prop">
+			<props>
+				<prop key="a">a</prop>
+				<prop key="b">b</prop>
+				<prop key="c">c</prop>
+			</props>
+		</property>
+
+
+	</bean>
+
+</beans>

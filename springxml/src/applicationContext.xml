@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="userServiceImpl"
+		class="org.framestudy.springxml.usermag.service.impl.UserServiceImpl" autowire="constructor"> 
+		 
+		<!-- 手动完成组件实例的装配 -->
+		<property name="userDaoImpl" ref="userMybatisDaoImpl"></property>
+		<!-- <constructor-arg index="0" ref="userHibernateDaoImpl"></constructor-arg> -->
+	</bean>
+
+	<bean id="userDaoImpl"
+		class="org.framestudy.springxml.usermag.dao.impl.UserHibernateDaoImpl"></bean>
+
+	<bean id="userMybatisDaoImpl"
+		class="org.framestudy.springxml.usermag.dao.impl.UserMybatisDaoImpl"></bean>
+	
+	<!-- spring容器除了提供了手动完成组件装配方式之外，还提供了自动装配方案
+	
+	byName 按照属性的名称，来完成自动装配，在实例化组件时，将检查组件的所有属性，
+	取得属性的属性名，然后回到spring容器中去检查是否有与该属性名一致的组件存在，如果
+	不存在，装配时不会报错，但是在运行时，会抛出NullPointException,如果找到了，则正常装配
+	
+	byType 按照属性的类型，来完成自动装配，在实例化组件时，将检查组件的所有属性，
+	取得属性的属性类型，然后回到spring容器中去检查，是否有该属性类型一致的组件存在，如果该类型
+	是接口类型，将检查容器中是否有该接口的实现类的类型组件存在，如果找到一个，则调用setter()正常
+	装配，如果找到多个，在装配时，将抛出NoUniqueBeanDefinitionException异常，如果一个都没有找到，
+	装配时，将不会抛出任何异常，但是在运行时，将抛出NullPointException
+	
+	constructor 按照构造器的方式，来完成自动装配，在实例化组件时，将检查构造函数中，构造参数的名称，
+	取得参数名称，回到spring容器中去检查，是否有与该参数名称一致的组件存在，如果
+	不存在，装配时不会报错，但是在运行时，会抛出NullPointException,如果找到了，则正常装配
+	
+	当手动装配，和自动装配，同时存在的情况下，spring容器将以手动装配为主。如果以后你们公司，还是使用
+	xml的方式，来完成组件的管理以及装配的话，推荐你们使用手动装配，自动装配虽然简单，粗暴，但是后期维护
+	痛苦，装配结构也不清晰
+	 -->	
+	 
+	 
+	 <import resource="spring-config.xml"/>
+</beans>
